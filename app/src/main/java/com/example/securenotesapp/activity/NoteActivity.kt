@@ -45,6 +45,9 @@ class NoteActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * enable run time permission of notification
+     */
     private fun notificationPermissionAtRunTime(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
@@ -74,6 +77,9 @@ class NoteActivity : AppCompatActivity() {
         viewBinding.categoryEditText.text.clear()
     }
 
+    /**
+     * backup schedule of data
+     */
     private fun scheduleBackup() {
         val backupWorkRequest = PeriodicWorkRequestBuilder<BackupWorker>(1, TimeUnit.DAYS).build()
         WorkManager.getInstance(this).enqueue(backupWorkRequest)

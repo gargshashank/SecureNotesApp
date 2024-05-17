@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.securenotesapp.EncryptionHelper
 import com.example.securenotesapp.R
+import com.example.securenotesapp.Utils.Companion.getDateFromTimeStamp
 import com.example.securenotesapp.roomdb.Note
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -36,7 +37,6 @@ class NotesAdapter(private val context: Context) : RecyclerView.Adapter<NotesAda
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: NotesAdapter.ViewHolder, position: Int) {
         val note = notesList[position]
-
         try {
             val encryptedNote = Base64.decode(note.encryptedNote, Base64.DEFAULT)
             val decryptedNote = EncryptionHelper.decrypt(encryptedNote)
@@ -45,10 +45,7 @@ class NotesAdapter(private val context: Context) : RecyclerView.Adapter<NotesAda
             e.printStackTrace()
             holder.noteTextView.text = "Error decrypting note"
         }
-
-        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
-        val date = Date(note.timestamp.toLong())
-        holder.timestampTextView.text = sdf.format(date)
+        holder.timestampTextView.text = getDateFromTimeStamp(note.timestamp)
         holder.categoryTextView.text = note.category
     }
 
@@ -62,8 +59,8 @@ class NotesAdapter(private val context: Context) : RecyclerView.Adapter<NotesAda
 
     // Holds the views for adding it to image and text
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val noteTextView = itemView.findViewById<TextView>(R.id.noteTextView)
-        val timestampTextView = itemView.findViewById<TextView>(R.id.timestampTextView)
-        val categoryTextView = itemView.findViewById<TextView>(R.id.categoryTextView)
+        val noteTextView: TextView = itemView.findViewById(R.id.noteTextView)
+        val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
+        val categoryTextView: TextView = itemView.findViewById(R.id.categoryTextView)
     }
 }
