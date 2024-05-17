@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SecureNotesApp</string>
+    <string name="add_note">Add Note</string>
+    <string name="enter_category">Enter category</string>
+    <string name="enter_note">Enter note</string>
+    <string name="note">Note</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="category">Category</string>
+</resources>
